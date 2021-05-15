@@ -14,8 +14,6 @@
 //./a.out
 
 
-// #include "simple_obj_file_reader.hpp"
-
 using namespace std::chrono;
 
 
@@ -73,11 +71,7 @@ int main(int argc, char **argv){
     #pragma omp parallel for schedule(static,1)
     for (int i = 0; i < H; i++){
         for (int j = 0; j < W; j++){
-            bool muller = false;         // if using muller box for antialiasing
-
-            // std::vector<double> index = {1};
-            // color = scene.getColor(r, max_path_length);
-            // std::cout << *index.size() << std::endl;
+            bool muller = false;         
 
             Vector cumul = Vector(0,0,0);
             for (int u = 0; u < samples; u++){
@@ -88,10 +82,6 @@ int main(int argc, char **argv){
                 Ray r = Ray(center, direction);
 
                 Vector color = scene.getColor(r,max_path_length);
-                // std::cout << std::endl;
-                // color = scene.getColor(r,max_path_length);
-                // print(color);
-                // std::cout << color[0] << ", " << color[1] << ", " << color[2] << std::endl;
                 cumul = cumul + color;
             }
             
