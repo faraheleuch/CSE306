@@ -55,7 +55,7 @@ int main(int argc, char **argv){
     std::vector<Vector> velocity(n);
     std::vector<double> lambda(n);
     
-    int frames = 300;
+    int frames = 30;
     for (int f=0; f<frames; f++) {
         std::cout << f << std::endl;
         auto [x,v] = Galouet_Merigot(points, velocity, mass);
