@@ -156,7 +156,7 @@ std::vector<double> LBFGS(std::vector<Vector>& pts, std::vector<double>& lambda)
     std::vector<double> w (n);
 
     double eps = 1e-1;
-    for(int it = 0; it<100; it++) {
+    for(int it = 0; it<10; it++) {
         auto pols = compute_vor(pts, w);
         for(int i = 0; i < n; i++){
             double dGi = - integrale(pts[i], pols[i]) + lambda[i];
@@ -176,12 +176,12 @@ std::pair< std::vector<Vector>, std::vector<Vector> > Galouet_Merigot(
     std::vector<Polygon> Pol = compute_vor(X, Vw) ;
     std::vector<Vector> vnext(N); 
     std::vector<Vector> Xnext(N); 
-    double eps = 0.4;
-    double dt = 0.2;
+    double eps = 0.004;
+    double dt = 0.002;
     for(int i = 0; i<N; i++) {
         Vector C = Pol[i].Centroid() ;
         Vector Fspring = 1./pow(eps,2) * (C - X[i]);
-        Vector F = Fspring - Vector(0, -9.81);
+        Vector F = Fspring + Vector(0, -9.81);
         vnext[i] = v[i] + dt*F/m[i];
         Xnext[i] = X[i] + dt*v[i];
     }

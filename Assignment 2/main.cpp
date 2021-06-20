@@ -48,7 +48,7 @@ int main(int argc, char **argv){
         points.push_back(Vector(generate(), generate()));
         mass.push_back(200);
     }
-    for (int i=0; i<n_water; i++) {
+    for (int i=0; i<n_air; i++) {
         points.push_back(Vector(generate(), generate()));
         mass.push_back(100);
     }
@@ -57,13 +57,14 @@ int main(int argc, char **argv){
     
     int frames = 300;
     for (int f=0; f<frames; f++) {
+        std::cout << f << std::endl;
         auto [x,v] = Galouet_Merigot(points, velocity, mass);
         points = x;
         velocity = v;
 
         auto weights = LBFGS(points, lambda);
         auto vor = compute_vor(points, weights);
-        save_svg_animated(vor, "water.svg", f, frames);
+        save_svg_animated(vor, "water.svg", f, frames, n_water);
     }
    
 

@@ -24,7 +24,7 @@
 // Adds one frame of an animated svg file. frameid is the frame number (between 0 and nbframes-1).
 // polygons is a list of polygons, describing the current frame.
 // The polygon vertices are supposed to be in the range [0..1], and a canvas of size 1000x1000 is created
-	void save_svg_animated(const std::vector<Polygon> &polygons, std::string filename, int frameid, int nbframes) {
+	void save_svg_animated(const std::vector<Polygon> &polygons, std::string filename, int frameid, int nbframes, int n_water) {
 		FILE* f;
 		if (frameid == 0) {
 			f = fopen(filename.c_str(), "w+");
@@ -39,7 +39,8 @@
 			for (int j = 0; j < polygons[i].vertices.size(); j++) {
 				fprintf(f, "%3.3f, %3.3f ", (polygons[i].vertices[j][0] * 1000), (1000-polygons[i].vertices[j][1] * 1000));
 			}
-			fprintf(f, "\"\nfill = \"none\" stroke = \"black\"/>\n");
+			if (i < n_water) fprintf(f, "\"\nfill = \"blue\" stroke = \"black\"/>\n");
+			else fprintf(f, "\"\nfill = \"none\" stroke = \"black\"/>\n");
 		}
 		fprintf(f, "<animate\n");
 		fprintf(f, "	id = \"frame%u\"\n", frameid);
